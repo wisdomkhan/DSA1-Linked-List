@@ -28,6 +28,25 @@ void DelEnd()
     printf("Node deleted at end\n");
 }
 
+void DelAt(int pos)
+{
+    int i = 1;
+    struct node *loop = head;
+    struct node *prev = head;
+    while (loop != NULL && i <= pos)
+    {
+        if (i == pos)
+        {
+            prev->next = loop->next;
+            printf("%d deleted\n", loop->data);
+            break;
+        }
+        i++;
+        prev = loop;
+        loop = loop->next;
+    }
+}
+
 void display()
 {
     struct node *temp = head;
@@ -41,7 +60,7 @@ void display()
 
 void main()
 {
-    int i = 1;
+    int pos, i = 1;
     while (i <= 5)
     {
         struct node *newNode = (struct node *)malloc(sizeof(struct node));
@@ -61,7 +80,13 @@ void main()
         }
         i++;
     }
-    DelFront();
-    DelEnd();
+    printf("Enter postion of node to delete ");
+    scanf("%d", &pos);
+    if (pos == 1)
+        DelFront();
+    else if (pos == 5)
+        DelEnd();
+    else
+        DelAt(pos);
     display();
 }
