@@ -14,11 +14,13 @@ void addBefore(int data, int pos)
     struct node *newNode = (struct node *)malloc(sizeof(struct node));
     newNode->data = data;
     newNode->next = NULL;
-    if(pos == 1){
+    if (pos == 1)
+    {
         newNode->next = head;
         head = newNode;
     }
-    else{
+    else
+    {
         struct node *loop = head;
         struct node *prev = head;
         while (loop != NULL && i <= pos)
@@ -49,28 +51,32 @@ void addAfter(int data, int pos)
         if (i == pos)
         {
             newNode->next = loop->next; //new node points to next node
-            loop->next = newNode; //current node points to new node
+            loop->next = newNode;       //current node points to new node
             printf("New node added after %d\n", pos);
             break;
         }
         i++;
         loop = loop->next;
     }
-    if(loop == NULL){
+    if (loop == NULL)
+    {
         tail->next = newNode;
         tail = newNode;
     }
 }
 
-void addNode(int data){
+void addNode(int data)
+{
     struct node *newNode = (struct node *)malloc(sizeof(struct node));
     newNode->data = data;
     newNode->next = NULL;
-    if(head == NULL){
+    if (head == NULL)
+    {
         head = newNode;
         tail = newNode;
     }
-    else{
+    else
+    {
         tail->next = newNode;
         tail = newNode;
     }
@@ -98,14 +104,16 @@ int main()
     printf("Enter length of list ");
     scanf("%d", &n);
     printf("Enter %d nodes\n", n);
-    while(i != n){
+    while (i != n)
+    {
         scanf("%d", &val);
         addNode(val);
         i++;
     }
     printf("Enter position to add node after and before it ");
     scanf("%d", &pos);
-    if(pos < 0 || pos > n){
+    if (pos < 0 || pos > n)
+    {
         printf("Invalid Position\n");
         exit(1);
     }
