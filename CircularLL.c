@@ -1,12 +1,35 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// delFront not  working
+// display not working when inside other functions
+// Empty ist is printed at last
+
 struct node
 {
     int data;
     struct node *next;
 };
 struct node *head = NULL, *tail = NULL;
+
+int n = 0;
+
+void display() // treaversal
+{
+    struct node *current = head;
+    if (head == NULL)
+        printf("Empty list\n");
+    else
+    {
+        while (current != tail)
+        {
+            printf("%d ", current->data);
+            current = current->next;
+            printf(" -> ");
+        }
+        printf("%d -> NULL\n", tail->data);
+    }
+}
 
 void addNode(int data)
 {
@@ -23,6 +46,9 @@ void addNode(int data)
         tail->next = newNode;
         tail = newNode;
     }
+    n++;
+    display();
+    printf("n=%d\n", n);
 }
 
 void addAtPos(int data, int pos) // this is same as addBefore
@@ -54,6 +80,9 @@ void addAtPos(int data, int pos) // this is same as addBefore
             loop = loop->next;
         }
     }
+    n++;
+    display();
+    printf("n=%d\n", n);
 }
 
 void addFront(int data)
@@ -63,6 +92,9 @@ void addFront(int data)
     newNode->next = head;
     head = newNode;
     printf("Node %d added at front\n", head->data);
+    n++;
+    display();
+    printf("n=%d\n", n);
 }
 
 void delEnd()
@@ -75,29 +107,41 @@ void delEnd()
         loopNode = loopNode->next;
     }
     prev->next = head;
-    loopNode->next = NULL;
     tail = prev;
     printf("Node deleted at end\n");
+    n--;
+    display();
+    printf("n=%d\n", n);
 }
 
-void display() // treaversal
+void delFront()
 {
-    struct node *current = head;
-    if (head == NULL)
+    struct node *temp;
+    temp = head;
+    head = head->next;
+    temp->next = NULL;
+    printf("Node (value=%d) at front deleted\n", temp->data);
+    n--;
+    display();
+    printf("n=%d\n", n);
+}
+
+void delAtn(int pos)
+{
+    int i = 1;
+    struct node *loop = head;
+    while (loop != NULL && i < pos - 1) // exit form loop as soon as we reach the node before node to be deleted
     {
-        printf("Empty list\n");
-        return;
+        i++;
+        loop = loop->next;
     }
-    else
-    {
-        while (current != tail) // changes made here
-        {
-            printf("%d ", current->data);
-            current = current->next;
-            printf(" -> ");
-        }
-        printf("%d -> NULL", tail->data);
-    }
+    int d;
+    d = loop->next->data;
+    loop->next = loop->next->next;
+    printf("%d deleted\n", d);
+    n--;
+    display();
+    printf("n=%d\n", n);
 }
 
 int main()
@@ -117,9 +161,18 @@ int main()
         printf("Invalid position\n");
     else
         addAtPos(v2, pos);
-    printf("Enter value to add the beginning ");
+    printf("Enter value to add at the beginning ");
     scanf("%d", &v1);
     addFront(v1);
+    printf("Enter position of node to delete ");
+    scanf("%d", &pos);
+    if (pos == 1)
+        delFront();
+    else if (pos == n)
+        delEnd();
+    else
+        delAtn(pos);
+    delFront();
     delEnd();
     display();
 }
