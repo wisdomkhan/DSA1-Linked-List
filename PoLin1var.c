@@ -38,7 +38,6 @@ void display(struct node *p){
     struct node *temp;
     temp = p;
     while(temp != NULL){
-        // if(temp->cof != 0){
         if (temp->cof != 0 && temp->pow > 1 && temp->cof != 1)
             printf("%dx^%d", (temp->cof>0)?(temp->cof):(-temp->cof), temp->pow);
         else if (temp->cof != 0 && temp->pow == 0)
@@ -49,7 +48,6 @@ void display(struct node *p){
             printf("x^%d", temp->pow);
         else if (temp->cof == 1 && temp->pow == 1)
             printf("x");
-        // }
         if (temp->next != NULL)
         {
             if(temp->next->cof > 0)

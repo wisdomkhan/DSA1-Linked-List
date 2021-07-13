@@ -83,7 +83,7 @@ void addNode(struct node **n, int c, int p) {
     ptr->link = new_node;
 }
 
-void addPolynomial(struct node **p1, struct node **p2) {
+void addPolynomial(struct node **p1, struct node **p2){
     struct node *ptr1 = *p1;
     struct node *ptr2 = *p2;
 
